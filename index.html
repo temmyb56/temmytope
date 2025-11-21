@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+
+  <title>Frontend Mentor | Conference ticket generator</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+ 
+</head>
+<body> 
+  
+  <!-- Form starts -->
+   <div class="form">
+    <div class="content">
+   <div class="military-logo">
+     <div class="logo-shield">
+       <div class="logo-star">★</div>
+       <div class="logo-text">ARMY</div>
+       <div class="logo-subtext">SECURITY</div>
+     </div>
+   </div>
+ 
+  <h1 class="journey">CIVILIAN ACCESS &amp; MOVEMENT TICKET<br>
+     AUTHORIZATION REQUIRED</h1>
+
+   <h5 class="Secure">Complete all fields for security clearance and access authorization.</h5>
+   
+   <!--<img src="./assets/images/pattern-squiggly-line-top.svg" alt="pattern" class="pattern-top" loading="lazy">-->
+  <form>
+   
+  <label for="avater" id="full">Upload Avatar</label><br>
+   <div class="avater" onclick="document.getElementById('avater').click()" id="upload-area"> 
+  <img src="./assets/images/icon-upload.svg" alt="Upload Icon" title="icon"   style="width: 24px; height: 24px;" loading="lazy"  class="img" id="upload-icon">
+    <input type="file" id="avater" name="avatar" accept="image/png, image/jpeg" required="">
+    <img class="image-preview" id="image-preview" alt="Preview">
+   <p class="drag" id="drag-text">Drag and drop or click to upload</p>
+   <div class="image-controls" id="image-controls">
+     <button type="button" class="btn-remove" id="btn-remove">Remove</button>
+     <button type="button" class="btn-change" id="btn-change">Change</button>
+   </div>
+  </div>
+   <div class="info-container">
+     <span class="dot"><img src="./assets/images/icon-info.svg" alt="dot" loading="lazy"></span>
+     <p class="jpg" id="png">Upload your photo (JPG or PNG, max size: 500KB).</p>
+   </div>
+  <label for="fullname"  id="full">Full Name</label><br>
+  <input type="text" id="fullname" placeholder="john doe"   ><br>
+   <label for="email"   id="full">Email Address</label><br>
+ <input type="email" id="email" name="email" placeholder="example@email.com" required  autocomplete="email"><br>
+  <div id="email-invalid"></div>
+ <label for="github" id="full">GitHub Username</label><br>
+  <input  type="text" id="github" name="username" placeholder=" @yourusername" required  autocomplete="username"><br>
+
+   <button type="button" id="button" onclick="validateForm()" ontouchstart="validateForm()">Generate My Ticket</button>
+    <div class="pattern-bottom"> 
+  <img src="./assets/images/pattern-squiggly-line-bottom-desktop.svg" alt="pattern"loading="lazy" class="pattern-b">
+  </div>
+   <div class="patt"> 
+  <img src="./assets/images/pattern-squiggly-line-bottom-mobile-tablet.svg" alt="pattern"loading="lazy" class="pattern">
+  </div>
+  </form>
+  </div>
+  
+  <!-- Form ends --> 
+
+  <!-- Generated tickets starts -->
+   <div class="congrats"> 
+
+  <h1 class="congrats-fullname">Congrats,<span id="jonatan"></span>Your ticket is ready.</h1>
+
+  <h5 class="we">We've emailed your ticket to<br><span id="address" style="word-break: break-all; max-width: 400px; display: inline-block;"></span> and will send updates in<br>
+     the run up to the event.</h5>
+  <div class="ticket-div"> 
+
+  <div id="date">Jan 31, 2025 / Austin, TX</div>
+  <p id="ticket-num"></p>
+  <div class="tic-all">
+    <div class="tic-pic">
+      <p id="ticket-pic"></p>
+    </div>
+    <div class="tic-name-username"> 
+      <p id="ticket-name"></p>
+      <p id="ticket-username"></p>
+    </div>
+  </div>
+  
+  </div>
+
+  </div>
+
+  <!-- Generated tickets ends -->
+  </div>
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>.
+  </div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

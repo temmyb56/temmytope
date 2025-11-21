@@ -1,0 +1,750 @@
+  *{
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+
+
+
+     .form{
+       background: linear-gradient(135deg, 
+         #2d4a2b 0%, 
+         #3d5a3b 25%, 
+         #4a6b48 50%, 
+         #3d5a3b 75%, 
+         #2d4a2b 100%),
+         repeating-linear-gradient(
+           45deg,
+           rgba(0,0,0,0.1) 0px,
+           rgba(0,0,0,0.1) 2px,
+           transparent 2px,
+           transparent 10px
+         );
+       background-size: cover;
+       background-repeat: no-repeat;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       position: relative;
+       padding: 2rem 1rem;
+       border: 3px solid #1a2e1a;
+     }
+   
+
+     .pattern-top{
+                  width: 20%;
+                  position: absolute;
+                  right: 2rem;
+                  top: 2rem;
+     }
+    .military-logo {
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+    
+    .logo-shield {
+      width: 120px;
+      height: 140px;
+      background: linear-gradient(135deg, #8B4513, #A0522D, #8B4513);
+      border: 3px solid #654321;
+      border-radius: 60px 60px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      position: relative;
+    }
+    
+    .logo-shield::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg, #2d4a2b, #4a6b48);
+      border-radius: 65px 65px 25px 25px;
+      z-index: -1;
+    }
+    
+    .logo-star {
+      font-size: 2rem;
+      color: #FFD700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      margin-bottom: 0.5rem;
+    }
+    
+    .logo-text {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+      letter-spacing: 2px;
+    }
+    
+    .logo-subtext {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.7rem;
+      color: #d4d4aa;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+      letter-spacing: 1px;
+      margin-top: 0.2rem;
+    }
+    .journey{
+             color: #fff;
+             margin: 2rem 0rem 0rem 0rem;
+             text-align: center;
+             letter-spacing: 3px;
+             font-size: clamp(1.2rem, 3vw, 2rem);
+             font-family: 'Courier New', Courier, monospace;
+             font-weight: bold;
+             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+             border: 2px solid #8B4513;
+             background: rgba(139, 69, 19, 0.3);
+             padding: 1rem;
+             border-radius: 5px;
+    }
+    .Secure{ 
+           color: #d4d4aa;
+           text-align: center;
+           font-weight: bold;
+           text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+           font-family: 'Courier New', Courier, monospace;
+    }
+     
+    #full{
+          color: #fff;
+          font-family: 'Courier New', Courier, monospace;
+          
+       
+    }
+    form{
+         display: flex;
+         flex-direction: column; 
+         justify-content: center;
+         width: 60%;
+         margin-left: 20%;
+         margin-top: 5%;
+          
+    }
+    .avater{
+        background-color: rgba(45, 74, 43, 0.7);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        padding: 0 0 5%;
+        height: auto;
+        border: 2px dashed #8B4513;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        position: relative;
+    }
+    
+    .image-preview{
+        width: 80px;
+        height: 80px;
+        border-radius: 10%;
+        object-fit: cover;
+        margin: 1rem auto;
+        display: none;
+        
+    }
+    
+    .image-controls{
+        display: none;
+        text-align: center;
+        margin-top: 0.5rem;
+        gap: 1rem;
+    }
+    
+    .btn-remove, .btn-change{
+        background: none;
+        border: none;
+        color:  rgba(245, 245, 245, 0.39);
+        cursor: pointer;
+        font-size: 0.8rem;
+        text-decoration: underline;
+        padding: 0.2rem 0.5rem;
+        margin-left: 25%;
+        text-decoration: none;
+        background-color: rgba(128, 128, 128, 0.365);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border-radius: 5px;
+    }
+
+    .btn-change{
+               margin-left: 18%;
+    }
+
+    
+    .btn-remove:hover, .btn-change:hover{
+        color: hsl(7, 88%, 67%);
+    }
+    
+    #ticket-pic img{
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .error{
+        border-color: #ff4757 !important;
+        box-shadow: 0 0 0 4px rgba(255, 71, 87, 0.12) !important;
+    }
+    
+    .error-message{
+        color: #ff4757;
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    
+    .avater:hover{
+        background-color: rgba(45, 74, 43, 0.9);
+    }
+    #avater{
+            display: none;
+
+    }
+
+
+
+    
+    .jpg{
+         color: grey;
+         font-size: clamp(0.5rem, 0.8vw, 2rem);
+         margin: 1% 0 2%;
+         font-family: 'Courier New', Courier, monospace;
+
+    }
+
+    .drag{
+          text-align: center;
+          margin-top: 0.9rem;
+          color: grey;
+          cursor: pointer;
+    }
+     
+    .img{
+        
+        margin:1rem 0rem 0rem 13rem;
+        cursor: pointer;
+    }
+    #fullname, #email, #github{
+                          height: 6vh;
+                          background-color: rgba(45, 74, 43, 0.8);
+                          -webkit-backdrop-filter: blur(10px);
+                          backdrop-filter: blur(10px);
+                          border-radius: 5px;
+                          border: 2px solid #8B4513;
+                          color: #fff;
+                          font-family: 'Courier New', Courier, monospace;
+                          padding: 0 0.75rem;
+    }
+
+ 
+    #fullname:hover, #email:hover, #github:hover{
+                                   background-color: rgba(45, 74, 43, 0.9);
+    }
+  #fullname:focus, #email:focus, #github:focus{
+                outline: none;
+                border-color: #8B4513;
+                box-shadow: 0 0 0 4px rgba(139, 69, 19, 0.3);
+                background-color: rgba(45, 74, 43, 0.9);
+  }
+
+  
+    #button{
+           height: 6vh;
+           background: linear-gradient(135deg, #8B4513, #A0522D);
+           border-radius: 5px;
+           font-weight: bold;
+           cursor: pointer;
+           border: 2px solid #654321;
+           color: #fff;
+           font-size: 1rem;
+           width: 100%;
+           touch-action: manipulation;
+           font-family: 'Courier New', Courier, monospace;
+           text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    }
+
+    /* Make info icon and text inline */
+    .info-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 1% 0 2%;
+    }
+
+    .dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .dot img {
+      width: 16px;
+      height: 16px;
+    }
+
+    #png {
+      display: inline;
+      margin: 0;
+    }
+    .pattern-bottom{
+               width: 50%;
+               margin-left: -40rem;
+               margin-top: -20rem;
+                          
+    }
+    
+    .patt{
+      display: none;
+    }
+
+
+
+
+
+
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .form{
+        background: linear-gradient(135deg, 
+          #2d4a2b 0%, 
+          #3d5a3b 25%, 
+          #4a6b48 50%, 
+          #3d5a3b 75%, 
+          #2d4a2b 100%),
+          repeating-linear-gradient(
+            45deg,
+            rgba(0,0,0,0.1) 0px,
+            rgba(0,0,0,0.1) 2px,
+            transparent 2px,
+            transparent 10px
+          );
+        background-size: cover;
+      }
+
+      /* Center content and set tablet widths */
+       
+      .content { max-width: 720px; margin: 0 auto; z-index: 1; position: relative; }
+      form { width: 90%; max-width: 90%; margin: 2rem auto 0; }
+
+      /* Position patterns relative to the form and behind content */
+      .pattern-top { position: absolute; top: 1.25rem; right: 1.25rem; width: 140px; pointer-events: none; z-index: 0; }
+      .patt{
+            display: block;
+            margin-left: -12rem;
+            margin-top: 17rem;
+            
+      }
+.pattern-b{
+         display: none;
+         margin-top: 10rem;
+    }
+                    
+
+
+
+
+      .content { z-index: 1; }
+
+
+      .img{
+           margin-left: 48%;
+      }
+      
+      #image-preview{
+                   margin-left: 10%;
+      }
+      .image-controls{
+                     margin-left: 10%;
+      }
+      #button{
+              cursor: pointer;
+              -webkit-tap-highlight-color: transparent;
+              -webkit-touch-callout: none;
+              -webkit-user-select: none;
+              user-select: none;
+              min-height: 44px;
+              padding: 12px 16px;
+      }
+    
+
+
+
+
+    }
+
+   @media only screen and (max-width:1024px) {
+                         #image-preview{
+                                     margin-left: 45%;
+                         }      
+
+
+
+   }
+
+
+    @media only screen and (max-width:768px){
+                       .form{
+                            background: linear-gradient(135deg, 
+                              #2d4a2b 0%, 
+                              #3d5a3b 25%, 
+                              #4a6b48 50%, 
+                              #3d5a3b 75%, 
+                              #2d4a2b 100%),
+                              repeating-linear-gradient(
+                                45deg,
+                                rgba(0,0,0,0.1) 0px,
+                                rgba(0,0,0,0.1) 2px,
+                                transparent 2px,
+                                transparent 10px
+                              );
+                            background-size: cover;
+                       }
+                       .content { max-width: 720px; margin: 0 auto; z-index: 1; position: relative; }
+                        form { width: 90%; max-width: 90%; margin: 2rem auto 0; }
+                       
+                        .patt{
+                             display: block;
+                             margin-top: 110%;
+                        }
+                       .pattern{
+                             
+                             width: 100%;
+                       }
+                       .pattern-b{
+                                     display: none;
+                       }
+                       .img{
+                            margin-left: 45%;
+                       }
+                       
+                       .logo-shield {
+                         width: 100px;
+                         height: 120px;
+                       }
+                       
+                       .logo-star {
+                         font-size: 1.8rem;
+                       }
+                       
+                       .logo-text {
+                         font-size: 1rem;
+                       }
+                       
+                       .logo-subtext {
+                         font-size: 0.6rem;
+                       }
+                    #image-preview{
+                           margin-left: 41%;
+                        }
+
+
+    }
+                    
+    
+
+
+
+
+
+    /* Generated ticket visibility and layout
+       - hide by default, show when `.show` class is present
+       - use column layout so ticket content stacks vertically and centers
+    */
+    .congrats{
+      display: ;
+      width: 100%;
+      max-width: 720px;
+      margin: 1rem auto;
+      text-align: center;
+      background: linear-gradient(135deg, 
+        #2d4a2b 0%, 
+        #3d5a3b 25%, 
+        #4a6b48 50%, 
+        #3d5a3b 75%, 
+        #2d4a2b 100%);
+      background-size: cover;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      position: relative;
+      border: 3px solid #1a2e1a;
+    }
+    
+   
+
+
+
+
+    .congrats.active{
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .congrats{
+        background: linear-gradient(135deg, 
+          #2d4a2b 0%, 
+          #3d5a3b 25%, 
+          #4a6b48 50%, 
+          #3d5a3b 75%, 
+          #2d4a2b 100%);
+      } 
+      
+
+
+    }
+    
+    @media only screen and (max-width:768px){
+      .congrats{
+        background: linear-gradient(135deg, 
+          #2d4a2b 0%, 
+          #3d5a3b 25%, 
+          #4a6b48 50%, 
+          #3d5a3b 75%, 
+          #2d4a2b 100%);
+      }
+    }
+    
+    .error{
+        border-color: #ff4757 !important;
+    }
+    
+    .error-message{
+        color: #ff4757;
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+    }
+
+    .congrats-fullname{
+      color: #fff;
+    }
+    #jonatan{
+            background-image: linear-gradient(to right,  hsl(7, 86%, 67%) to hsl(0, 0%, 100%));
+    }
+    .we{
+        color: grey;
+        text-align: center;
+        line-height: 1.5;
+    }
+    #address{
+              color: hsl(7, 71%, 60%);
+              word-break: break-all;
+              overflow-wrap: break-word;
+              max-width: 300px;
+              display: inline-block;
+    }
+   
+    /* Ticket card: responsive background and layout */
+    .ticket-div{
+              background-image: url(./assets/images/pattern-ticket.svg);
+              width: 100%;
+              max-width: 720px;
+              margin: 1rem auto;
+              margin-top: 15%;
+              padding: 2rem 1.25rem;
+              box-sizing: border-box;
+              background-repeat: no-repeat;
+              background-position: center top;
+              background-size: contain; /* scale the ticket background to fit */
+              min-height: 220px; /* fallback height */
+              position: relative;
+    }
+
+
+
+    .ticket-div #date{
+      color: #fff;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0.25rem auto 0 auto;
+      font-weight: bold;
+      text-align: center;
+      margin-left: -20%;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+      font-size: clamp(0.5rem, 1vw, 1rem);
+    }
+    .tic-all{
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem 0;
+        margin-top: 3.5rem;
+        margin-left: -30%;
+        justify-content: center;
+        flex-wrap: nowrap;
+    }
+    
+    .tic-pic{
+        flex-shrink: 0;
+    }
+    
+    #ticket-pic img{
+        width: 60px;
+        height: 60px;
+        border-radius: 10%;
+        object-fit: cover;
+    }
+    
+    .tic-name-email{
+        text-align: left;
+        flex: 1;
+        min-width: 0;
+    }
+    
+    #ticket-name{
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 0;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    
+    #ticket-num{
+        color: #ccc; 
+        position: absolute;
+        right: 18%;
+        top: 50%;
+        transform: rotate(-90deg);
+        transform-origin: center;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    
+    #ticket-username{
+        color: #fff;
+        font-size: clamp(0.8rem, 1vw, 0.9rem);
+        text-align: center;
+        margin: 0.5rem 0;
+        font-family: 'Courier New', Courier, monospace;
+
+    }
+
+   @media(min-width:768px) and (max-width:1024px) {
+                     #tic-all{
+                            margin-left: -60%; 
+
+                     }
+                     #ticket-num{
+                             right: 17%;
+                     }
+  
+                     
+               
+   }
+
+   @media(min-width:554px){
+                      #ticket-num{
+                              right: 20%;  
+                      }
+   }
+
+   @media only screen and (max-width:1024px) {
+                              #ticket-num{
+                                        right: 15%;
+                              }
+                    
+   }
+
+
+
+
+    /* smaller screens: reduce padding and min-height so it fits without overflow */
+    @media only screen and (max-width:768px){
+                        .ticket-div{
+                                 padding: 1rem;
+                                 min-height: 160px;
+                                 max-width: 95%;
+                                 background-size: contain;
+                        }
+
+                        .ticket-div #date{ font-size: 1%; }
+
+                        #ticket-num{
+                                  right: 0%;
+                        }
+                        #ticket-num{
+                                  top: 40%;
+                        }
+                        .tic-all {
+                            gap: 0.75rem; /* FIXED: Smaller gap on mobile */
+                            margin-top: 15%;
+                        }
+                        .tic-pic {
+                            flex-basis: 50px; /* FIXED: Smaller image container on mobile */
+                        }
+                        #ticket-pic img {
+                            width: 50px;
+                            height: 50px;
+                        }
+
+    }
+
+   @media only screen and (max-width:468px) {
+                               #ticket-num{
+                                        
+                                          right: -9%;
+                                        
+                                         
+                                        
+
+
+                                      }
+                                     
+                               .ticket-div #date{ font-size: 1%;}
+                             #image-preview{
+                           margin-left: 36%;
+      }
+
+
+                          .btn-remove, .btn-change{
+                                          margin-left: 17%;
+
+                          }
+                               
+
+                               
+
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .attribution { font-size: 11px; text-align: center; }
+    .attribution a { color: hsl(228, 45%, 44%); }
+
+    /* NEW: Hide class for the content/form section */
+    .content.hide {
+      display: none;
+    }
+    
+    .form {
+      min-height: 100vh;
+    }
+
