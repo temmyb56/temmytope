@@ -12,13 +12,13 @@ import threading
 app = Flask(__name__)
 CORS(app, origins=['*'], allow_headers=['Content-Type'], methods=['GET', 'POST', 'OPTIONS'])
 
-# Import email configuration
-try:
-    from email_config import EMAIL_ADDRESS, EMAIL_PASSWORD
-except ImportError:
-    EMAIL_ADDRESS = "ocooper830@gmail.com"
-    EMAIL_PASSWORD = "qbixjsqrwrfhukoe"
-    print("⚠️  Please update email_config.py with your Gmail credentials")
+# Import email configuration from environment or config file
+EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS', 'ocooper830@gmail.com')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'iangniiipitatgtw')
+SMTP_SERVER = os.environ.get('SMTP_SERVER', 'smtp.gmail.com')
+SMTP_PORT = int(os.environ.get('SMTP_PORT', '587'))
+
+print(f"📧 Email config: {EMAIL_ADDRESS} via {SMTP_SERVER}:{SMTP_PORT}")
 
 # Store tickets in memory (in production, use a database)
 tickets = []
@@ -67,7 +67,7 @@ Military Security Team
         msg['To'] = ticket_data['email']
         msg['Subject'] = f"Military Access Ticket {ticket_data['ticket_number']} Ready!"
         
-        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
         server.starttls()
         server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         server.sendmail(EMAIL_ADDRESS, ticket_data['email'], msg.as_string())
