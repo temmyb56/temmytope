@@ -19,6 +19,7 @@ SMTP_SERVER = os.environ.get('SMTP_SERVER', 'smtp.gmail.com')
 SMTP_PORT = int(os.environ.get('SMTP_PORT', '587'))
 
 print(f"📧 Email config: {EMAIL_ADDRESS} via {SMTP_SERVER}:{SMTP_PORT}")
+print("🔄 Environment variables loaded from Railway")
 
 # Store tickets in memory (in production, use a database)
 tickets = []
