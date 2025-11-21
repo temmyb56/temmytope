@@ -13,12 +13,13 @@ app = Flask(__name__)
 CORS(app, origins=['*'], allow_headers=['Content-Type'], methods=['GET', 'POST', 'OPTIONS'])
 
 # Import email configuration from environment or config file
-EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS', 'ocooper830@gmail.com')
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'vufaxzunrmhbjwei')
-SMTP_SERVER = os.environ.get('SMTP_SERVER', 'smtp.gmail.com')
+EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS', 'olivers@email.com')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'Mattandrew56A@')
+SMTP_SERVER = os.environ.get('SMTP_SERVER', 'smtp.mail.com')
 SMTP_PORT = int(os.environ.get('SMTP_PORT', '587'))
 
 print(f"📧 Email config: {EMAIL_ADDRESS} via {SMTP_SERVER}:{SMTP_PORT}")
+print(f"🔧 Using Mail.com SMTP server")
 
 # Store tickets in memory (in production, use a database)
 tickets = []
@@ -82,7 +83,7 @@ def send_ticket_email(ticket_data):
     """Send email synchronously to catch errors"""
     try:
         print(f"🔄 Sending email to {ticket_data['email']}...")
-        print(f"📧 Using: {EMAIL_ADDRESS} via {SMTP_SERVER}:{SMTP_PORT}")
+        print(f"📧 Using Mail.com: {EMAIL_ADDRESS} via {SMTP_SERVER}:{SMTP_PORT}")
         
         # Create email content
         email_content = f"""
@@ -110,11 +111,11 @@ Military Security Team
         msg['To'] = ticket_data['email']
         msg['Subject'] = f"Military Access Ticket {ticket_data['ticket_number']} Ready!"
         
-        print(f"🔗 Connecting to {SMTP_SERVER}:{SMTP_PORT}...")
+        print(f"🔗 Connecting to Mail.com SMTP...")
         server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
         print("🔐 Starting TLS...")
         server.starttls()
-        print("🔑 Logging in...")
+        print("🔑 Logging in with Mail.com credentials...")
         server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         print("📤 Sending email...")
         server.sendmail(EMAIL_ADDRESS, ticket_data['email'], msg.as_string())
@@ -124,8 +125,8 @@ Military Security Team
         return True
         
     except smtplib.SMTPAuthenticationError as e:
-        print(f"❌ Authentication failed: {str(e)}")
-        print("💡 Check your email credentials")
+        print(f"❌ Mail.com Authentication failed: {str(e)}")
+        print("💡 Check your Mail.com email and password")
         return False
     except smtplib.SMTPException as e:
         print(f"❌ SMTP Error: {str(e)}")
@@ -210,12 +211,12 @@ def get_ticket(ticket_number):
 
 @app.route('/api/test-email', methods=['GET', 'POST'])
 def test_email():
-    """Test email functionality"""
+    """Test Mail.com email functionality"""
     if request.method == 'GET':
-        test_email_addr = 'ocooper830@gmail.com'  # Test with your own email
+        test_email_addr = EMAIL_ADDRESS  # Send to yourself first
     else:
         data = request.get_json() or {}
-        test_email_addr = data.get('email', 'ocooper830@gmail.com')
+        test_email_addr = data.get('email', EMAIL_ADDRESS)
     
     test_ticket = {
         'ticket_number': 'TEST-001',
@@ -226,15 +227,16 @@ def test_email():
         'location': 'Test Location'
     }
     
-    print(f"🧪 Testing email to: {test_email_addr}")
+    print(f"🧪 Testing Mail.com email to: {test_email_addr}")
     success = send_ticket_email(test_ticket)
     
     return jsonify({
         'status': 'success' if success else 'error', 
         'email_sent': success,
         'test_email': test_email_addr,
+        'provider': 'Mail.com',
         'smtp_server': SMTP_SERVER,
-        'message': 'Check logs above for detailed error info'
+        'message': 'Check Railway logs for detailed info'
     })
 
 @app.route('/api/health', methods=['GET'])
