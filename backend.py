@@ -7,6 +7,7 @@ import base64
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import threading
 
 app = Flask(__name__)
 CORS(app, origins=['*'], allow_headers=['Content-Type'], methods=['GET', 'POST', 'OPTIONS'])
@@ -35,8 +36,8 @@ def test_endpoint():
 def serve_static(filename):
     return send_from_directory('.', filename)
 
-def send_ticket_email(ticket_data):
-    """Simple email sender with fallback to file"""
+def send_ticket_email_async(ticket_data):
+    """Send email in background thread"""
     try:
         print(f"🔄 Sending email to {ticket_data['email']}...")
         
@@ -44,7 +45,7 @@ def send_ticket_email(ticket_data):
         email_content = f"""
 Hello {ticket_data['full_name']}!
 
-🎟️ Your access Ticket is Ready!
+🎟️ Your Military Access Ticket is Ready!
 
 Ticket Details:
 - Ticket Number: {ticket_data['ticket_number']}
@@ -55,46 +56,37 @@ Ticket Details:
 
 Please keep this email as confirmation.
 
-we will be expecting you! 🚀
+We will be expecting you! 🚀
 
-Millitary agent
+Military Security Team
 """
         
-        # Try Gmail first
-        try:
-            msg = MIMEText(email_content)
-            msg['From'] = EMAIL_ADDRESS
-            msg['To'] = ticket_data['email']
-            msg['Subject'] = f"Ticket {ticket_data['ticket_number']} Ready!"
-            
-            server = smtplib.SMTP('smtp.gmail.com', 587)
-            server.starttls()
-            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            server.sendmail(EMAIL_ADDRESS, ticket_data['email'], msg.as_string())
-            server.quit()
-            
-            print(f"✅ Email sent via Gmail to {ticket_data['email']}")
-            return True
-            
-        except Exception as e:
-            print(f"❌ Gmail failed: {str(e)}")
+        # Try Gmail
+        msg = MIMEText(email_content)
+        msg['From'] = EMAIL_ADDRESS
+        msg['To'] = ticket_data['email']
+        msg['Subject'] = f"Military Access Ticket {ticket_data['ticket_number']} Ready!"
         
-        # Fallback: Save to file
-        with open('ticket_emails.txt', 'a', encoding='utf-8') as f:
-            f.write(f"\n{'='*50}\n")
-            f.write(f"TO: {ticket_data['email']}\n")
-            f.write(f"SUBJECT: Ticket {ticket_data['ticket_number']} Ready!\n")
-            f.write(f"DATE: {datetime.now()}\n")
-            f.write(f"{'='*50}\n")
-            f.write(email_content)
-            f.write(f"\n{'='*50}\n")
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.sendmail(EMAIL_ADDRESS, ticket_data['email'], msg.as_string())
+        server.quit()
         
-        print(f"📁 Email saved to ticket_emails.txt for {ticket_data['email']}")
-        return True
+        print(f"✅ Email sent to {ticket_data['email']}")
         
     except Exception as e:
-        print(f"❌ Email error: {str(e)}")
-        return False
+        print(f"❌ Email failed: {str(e)}")
+
+def send_ticket_email(ticket_data):
+    """Start email sending in background thread"""
+    # Start email in background thread for speed
+    email_thread = threading.Thread(target=send_ticket_email_async, args=(ticket_data,))
+    email_thread.daemon = True
+    email_thread.start()
+    
+    # Return True immediately (email sending in background)
+    return True
 
 @app.route('/api/generate-ticket', methods=['POST', 'OPTIONS'])
 def generate_ticket():

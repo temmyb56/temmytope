@@ -196,7 +196,7 @@ function displayTicket(ticket, emailSent = false) {
     // Update email status message
     const emailStatus = emailSent ? 
         "We've emailed your ticket to" : 
-        "Your ticket is ready! (Email sending failed, but your ticket is valid)";
+        "Your ticket is ready! (Email sending in progress, check your inbox in a few minutes)";
     
     document.querySelector('.we').innerHTML = emailStatus + '<br><span id="address" style="word-break: break-all; max-width: 400px; display: inline-block;">' + ticket.email + '</span> and will send updates in<br>the run up to the event.';
 
