@@ -14,12 +14,11 @@ CORS(app, origins=['*'], allow_headers=['Content-Type'], methods=['GET', 'POST',
 
 # Import email configuration from environment or config file
 EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS', 'ocooper830@gmail.com')
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'iangniiipitatgtw')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'vufaxzunrmhbjwei')
 SMTP_SERVER = os.environ.get('SMTP_SERVER', 'smtp.gmail.com')
 SMTP_PORT = int(os.environ.get('SMTP_PORT', '587'))
 
 print(f"📧 Email config: {EMAIL_ADDRESS} via {SMTP_SERVER}:{SMTP_PORT}")
-print("🔄 Environment variables loaded from Railway")
 
 # Store tickets in memory (in production, use a database)
 tickets = []
