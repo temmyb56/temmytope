@@ -465,7 +465,7 @@
        - use column layout so ticket content stacks vertically and centers
     */
     .congrats{
-      display: ;
+      display: none;
       width: 100%;
       max-width: 720px;
       margin: 1rem auto;
