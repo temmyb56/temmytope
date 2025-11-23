@@ -128,7 +128,12 @@ function validateForm() {
             // Send data to backend
             const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
             
-            fetch('/api/generate-ticket', {
+            // Auto-detect API URL for both local and Vercel
+            const apiUrl = window.location.hostname === 'localhost' ? 
+                'http://localhost:5000/api/generate-ticket' : 
+                '/api/generate-ticket';
+            
+            fetch(apiUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
