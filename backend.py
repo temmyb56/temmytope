@@ -12,14 +12,13 @@ import threading
 app = Flask(__name__)
 CORS(app, origins=['*'], allow_headers=['Content-Type'], methods=['GET', 'POST', 'OPTIONS'])
 
-# Import email configuration from environment or config file
-EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS', 'olivers@email.com')
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'Mattandrew56A@')
-SMTP_SERVER = os.environ.get('SMTP_SERVER', 'smtp.mail.com')
-SMTP_PORT = int(os.environ.get('SMTP_PORT', '587'))
+# Gmail configuration
+EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS', 'Matttingle18@gmail.com')
+EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', 'ertbsrcfqfftceml')
+SMTP_SERVER = 'smtp.gmail.com'
+SMTP_PORT = 587
 
-print(f"📧 Email config: {EMAIL_ADDRESS} via {SMTP_SERVER}:{SMTP_PORT}")
-print(f"🔧 Using Mail.com SMTP server")
+print(f"📧 Using Gmail: {EMAIL_ADDRESS}")
 
 # Store tickets in memory (in production, use a database)
 tickets = []
@@ -36,6 +35,8 @@ def test_endpoint():
 @app.route('/<path:filename>')
 def serve_static(filename):
     return send_from_directory('.', filename)
+
+
 
 def send_ticket_email_async(ticket_data):
     """Send email in background thread"""
@@ -62,15 +63,23 @@ We will be expecting you! 🚀
 Military Security Team
 """
         
-        # Try Gmail
+        # Use Mail.com SMTP
         msg = MIMEText(email_content)
         msg['From'] = EMAIL_ADDRESS
         msg['To'] = ticket_data['email']
         msg['Subject'] = f"Military Access Ticket {ticket_data['ticket_number']} Ready!"
         
+        print(f"📧 Email: {EMAIL_ADDRESS}")
+        print(f"🔑 Password length: {len(EMAIL_PASSWORD)} chars")
+        
+        # Connect to Gmail SMTP
+        print(f"🔗 Connecting to {SMTP_SERVER}:{SMTP_PORT}...")
         server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        print("🔐 Starting TLS...")
         server.starttls()
+        print("🔑 Logging in with Gmail...")
         server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        print("📤 Sending email...")
         server.sendmail(EMAIL_ADDRESS, ticket_data['email'], msg.as_string())
         server.quit()
         
@@ -80,61 +89,14 @@ Military Security Team
         print(f"❌ Email failed: {str(e)}")
 
 def send_ticket_email(ticket_data):
-    """Send email synchronously to catch errors"""
-    try:
-        print(f"🔄 Sending email to {ticket_data['email']}...")
-        print(f"📧 Using Mail.com: {EMAIL_ADDRESS} via {SMTP_SERVER}:{SMTP_PORT}")
-        
-        # Create email content
-        email_content = f"""
-Hello {ticket_data['full_name']}!
-
-🎟️ Your Military Access Ticket is Ready!
-
-Ticket Details:
-- Ticket Number: {ticket_data['ticket_number']}
-- Name: {ticket_data['full_name']}
-- Username: @{ticket_data['github_username']}
-- Date: {ticket_data['date']}
-- Location: {ticket_data['location']}
-
-Please keep this email as confirmation.
-
-We will be expecting you! 🚀
-
-Military Security Team
-"""
-        
-        # Create email message
-        msg = MIMEText(email_content)
-        msg['From'] = EMAIL_ADDRESS
-        msg['To'] = ticket_data['email']
-        msg['Subject'] = f"Military Access Ticket {ticket_data['ticket_number']} Ready!"
-        
-        print(f"🔗 Connecting to Mail.com SMTP...")
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        print("🔐 Starting TLS...")
-        server.starttls()
-        print("🔑 Logging in with Mail.com credentials...")
-        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-        print("📤 Sending email...")
-        server.sendmail(EMAIL_ADDRESS, ticket_data['email'], msg.as_string())
-        server.quit()
-        
-        print(f"✅ Email successfully sent to {ticket_data['email']}")
-        return True
-        
-    except smtplib.SMTPAuthenticationError as e:
-        print(f"❌ Mail.com Authentication failed: {str(e)}")
-        print("💡 Check your Mail.com email and password")
-        return False
-    except smtplib.SMTPException as e:
-        print(f"❌ SMTP Error: {str(e)}")
-        return False
-    except Exception as e:
-        print(f"❌ Email failed: {str(e)}")
-        print(f"❌ Error type: {type(e).__name__}")
-        return False
+    """Start email sending in background thread"""
+    # Start email in background thread for speed
+    email_thread = threading.Thread(target=send_ticket_email_async, args=(ticket_data,))
+    email_thread.daemon = True
+    email_thread.start()
+    
+    # Return True immediately (email sending in background)
+    return True
 
 @app.route('/api/generate-ticket', methods=['POST', 'OPTIONS'])
 def generate_ticket():
@@ -209,35 +171,23 @@ def get_ticket(ticket_number):
         return jsonify({'status': 'success', 'ticket': ticket})
     return jsonify({'status': 'error', 'message': 'Ticket not found'}), 404
 
-@app.route('/api/test-email', methods=['GET', 'POST'])
+@app.route('/api/test-email', methods=['POST'])
 def test_email():
-    """Test Mail.com email functionality"""
-    if request.method == 'GET':
-        test_email_addr = EMAIL_ADDRESS  # Send to yourself first
-    else:
-        data = request.get_json() or {}
-        test_email_addr = data.get('email', EMAIL_ADDRESS)
+    """Test email functionality"""
+    data = request.get_json()
+    test_email = data.get('email', 'test@example.com')
     
     test_ticket = {
         'ticket_number': 'TEST-001',
         'full_name': 'Test User',
-        'email': test_email_addr,
+        'email': test_email,
         'github_username': 'testuser',
         'date': 'Jan 31, 2025',
         'location': 'Test Location'
     }
     
-    print(f"🧪 Testing Mail.com email to: {test_email_addr}")
     success = send_ticket_email(test_ticket)
-    
-    return jsonify({
-        'status': 'success' if success else 'error', 
-        'email_sent': success,
-        'test_email': test_email_addr,
-        'provider': 'Mail.com',
-        'smtp_server': SMTP_SERVER,
-        'message': 'Check Railway logs for detailed info'
-    })
+    return jsonify({'status': 'success' if success else 'error', 'email_sent': success})
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
