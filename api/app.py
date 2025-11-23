@@ -23,7 +23,7 @@ tickets = []
 ticket_counter = 100000
 
 @app.route('/')
-def serve_index():
+def api_root():
     return jsonify({'status': 'success', 'message': 'Military Ticket Generator API'})
 
 @app.route('/test')
